@@ -1,5 +1,6 @@
 #![warn(clippy::pedantic, clippy::nursery)]
 
+use actix_cors::Cors;
 use actix_web::{App, HttpResponse, HttpServer, Responder, get, post, web};
 use feruca::{Collator, Locale, Tailoring};
 use serde::{Deserialize, Serialize};
@@ -12,10 +13,21 @@ struct SortReq {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| App::new().service(hello).service(sorter))
-        .bind(("0.0.0.0", 8080))?
-        .run()
-        .await
+    HttpServer::new(|| {
+        App::new()
+            .wrap(
+                Cors::default()
+                    .allowed_origin("https://www.theobeers.com")
+                    .allowed_methods(vec!["GET", "POST", "OPTIONS"])
+                    .allowed_headers(vec!["Content-Type", "Accept"])
+                    .max_age(3600),
+            )
+            .service(hello)
+            .service(sorter)
+    })
+    .bind(("0.0.0.0", 8080))?
+    .run()
+    .await
 }
 
 #[get("/")]
