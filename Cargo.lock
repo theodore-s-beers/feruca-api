@@ -478,9 +478,9 @@ checksum = "877a4ace8713b0bcf2a4e7eec82529c029f1d0619886d18145fea96c3ffe5c0f"
 
 [[package]]
 name = "feruca"
-version = "0.11.0"
+version = "0.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "98cb923cd412636305621ebcdf181f834ed77dc5abad627af668446813c0f369"
+checksum = "b9ed3e427193b18836496634d3477c5dcaf341813dda6ab1754585693e3d8370"
 dependencies = [
  "bincode",
  "bstr",
